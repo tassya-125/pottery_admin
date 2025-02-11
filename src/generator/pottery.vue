@@ -109,9 +109,14 @@
       this.getDataList()
     },
     methods: {
+      isAuth(val){
+        console.log(val)
+        return true
+      },
       // 获取数据列表
       getDataList () {
         this.dataListLoading = true
+        console.log("hello world")
         this.$http({
           url: '/generator/pottery/list',
           method: 'get',
@@ -164,9 +169,9 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/generator/pottery/delete'),
+            url:'/generator/pottery/delete',
             method: 'post',
-            data: this.$http.adornData(ids, false)
+            data:  {}
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
