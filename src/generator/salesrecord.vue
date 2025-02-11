@@ -81,6 +81,7 @@
 <script>
   import AddOrUpdate from './salesrecord-add-or-update'
   export default {
+    name:"salesRecord",
     data () {
       return {
         dataForm: {

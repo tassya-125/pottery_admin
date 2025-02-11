@@ -87,6 +87,7 @@
 <script>
   import AddOrUpdate from './user-add-or-update'
   export default {
+    name:"userPage",
     data () {
       return {
         dataForm: {

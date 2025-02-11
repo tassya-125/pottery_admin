@@ -75,6 +75,7 @@
 <script>
   import AddOrUpdate from './verificationhistory-add-or-update'
   export default {
+    name:"verificationHistory",
     data () {
       return {
         dataForm: {

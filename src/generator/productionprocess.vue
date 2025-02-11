@@ -81,6 +81,7 @@
 <script>
   import AddOrUpdate from './productionprocess-add-or-update'
   export default {
+    name:"productionProcess",
     data () {
       return {
         dataForm: {
