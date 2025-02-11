@@ -3,7 +3,7 @@
     :title="!dataForm.id ? '新增' : '修改'"
     :close-on-click-modal="false"
     v-model:visible="visible">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter="dataFormSubmit()" label-width="80px">
     <el-form-item label="" prop="processName">
       <el-input v-model="dataForm.processName" placeholder=""></el-input>
     </el-form-item>
@@ -17,7 +17,7 @@
       <el-input v-model="dataForm.potteryUid" placeholder=""></el-input>
     </el-form-item>
     </el-form>
-    <span slot="footer" class="dialog-footer">
+    <span class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
       <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
     </span>
@@ -79,15 +79,15 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/productionprocess/${!this.dataForm.id ? 'save' : 'update'}`),
+              url: `/generator/productionprocess/${!this.dataForm.id ? 'save' : 'update'}`,
               method: 'post',
-              data: this.$http.adornData({
+              data: {
                 'id': this.dataForm.id || undefined,
                 'processName': this.dataForm.processName,
                 'inspectionResult': this.dataForm.inspectionResult,
                 'qualityCertification': this.dataForm.qualityCertification,
                 'potteryUid': this.dataForm.potteryUid
-              })
+              }
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({

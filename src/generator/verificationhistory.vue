@@ -75,6 +75,7 @@
 <script>
   import AddOrUpdate from './verificationhistory-add-or-update'
   export default {
+    name:"verificationHistory",
     data () {
       return {
         dataForm: {
@@ -100,13 +101,13 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/generator/verificationhistory/list'),
+          url: '/generator/verificationhistory/list',
           method: 'get',
-          params: this.$http.adornParams({
+          params: {
             'page': this.pageIndex,
             'limit': this.pageSize,
             'key': this.dataForm.key
-          })
+          }
         }).then(({data}) => {
           if (data && data.code === 0) {
             this.dataList = data.page.list
@@ -151,9 +152,9 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/generator/verificationhistory/delete'),
+            url: '/generator/verificationhistory/delete',
             method: 'post',
-            data: this.$http.adornData(ids, false)
+            data: {}
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({

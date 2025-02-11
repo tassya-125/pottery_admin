@@ -20,7 +20,7 @@
       <el-input v-model="dataForm.type" placeholder=""></el-input>
     </el-form-item>
     </el-form>
-    <span slot="footer" class="dialog-footer">
+    <span  class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
       <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
     </span>
@@ -67,9 +67,9 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/user/info/${this.dataForm.id}`),
+              url: `/generator/user/info/${this.dataForm.id}`,
               method: 'get',
-              params: this.$http.adornParams()
+              params:  {}
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.dataForm.username = data.user.username
@@ -87,16 +87,16 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/user/${!this.dataForm.id ? 'save' : 'update'}`),
+              url: `/generator/user/${!this.dataForm.id ? 'save' : 'update'}`,
               method: 'post',
-              data: this.$http.adornData({
+              data: {
                 'id': this.dataForm.id || undefined,
                 'username': this.dataForm.username,
                 'phoneNumber': this.dataForm.phoneNumber,
                 'email': this.dataForm.email,
                 'password': this.dataForm.password,
                 'type': this.dataForm.type
-              })
+              }
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({

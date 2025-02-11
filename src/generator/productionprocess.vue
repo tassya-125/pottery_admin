@@ -81,6 +81,7 @@
 <script>
   import AddOrUpdate from './productionprocess-add-or-update'
   export default {
+    name:"productionProcess",
     data () {
       return {
         dataForm: {
@@ -106,13 +107,13 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/generator/productionprocess/list'),
+          url: '/generator/productionprocess/list',
           method: 'get',
-          params: this.$http.adornParams({
+          params: {
             'page': this.pageIndex,
             'limit': this.pageSize,
             'key': this.dataForm.key
-          })
+          }
         }).then(({data}) => {
           if (data && data.code === 0) {
             this.dataList = data.page.list

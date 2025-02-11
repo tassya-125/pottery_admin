@@ -20,7 +20,7 @@
       <el-input v-model="dataForm.imageUrl" placeholder=""></el-input>
     </el-form-item>
     </el-form>
-    <span slot="footer" class="dialog-footer">
+    <span  class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
       <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
     </span>
@@ -67,9 +67,9 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.uid) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/pottery/info/${this.dataForm.uid}`),
+              url: `/generator/pottery/info/${this.dataForm.uid}`,
               method: 'get',
-              params: this.$http.adornParams()
+              params:  {}
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.dataForm.creator = data.pottery.creator
@@ -87,16 +87,16 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/pottery/${!this.dataForm.uid ? 'save' : 'update'}`),
+              url: "/generator/pottery/${!this.dataForm.uid ? 'save' : 'update'}",
               method: 'post',
-              data: this.$http.adornData({
+              data: {
                 'uid': this.dataForm.uid || undefined,
                 'creator': this.dataForm.creator,
                 'origin': this.dataForm.origin,
                 'productionTime': this.dataForm.productionTime,
                 'craftsmanshipProcess': this.dataForm.craftsmanshipProcess,
                 'imageUrl': this.dataForm.imageUrl
-              })
+              }
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({

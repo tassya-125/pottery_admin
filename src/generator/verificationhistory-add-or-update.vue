@@ -14,7 +14,7 @@
       <el-input v-model="dataForm.potteryUid" placeholder=""></el-input>
     </el-form-item>
     </el-form>
-    <span slot="footer" class="dialog-footer">
+    <span  class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
       <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
     </span>
@@ -53,9 +53,9 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/verificationhistory/info/${this.dataForm.id}`),
+              url: `/generator/verificationhistory/info/${this.dataForm.id}`,
               method: 'get',
-              params: this.$http.adornParams()
+              params: {}
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.dataForm.verifierId = data.verificationHistory.verifierId
@@ -71,14 +71,14 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/verificationhistory/${!this.dataForm.id ? 'save' : 'update'}`),
+              url: `/generator/verificationhistory/${!this.dataForm.id ? 'save' : 'update'}`,
               method: 'post',
-              data: this.$http.adornData({
+              data: {
                 'id': this.dataForm.id || undefined,
                 'verifierId': this.dataForm.verifierId,
                 'verificationResult': this.dataForm.verificationResult,
                 'potteryUid': this.dataForm.potteryUid
-              })
+              }
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({
