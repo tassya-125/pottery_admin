@@ -26,7 +26,7 @@
           style="width: 100%;"
           stripe
       >
-        <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
+        <el-table-column type="selection" header-align="center" align="center" ></el-table-column>
         <el-table-column prop="id" label="ID" align="center"></el-table-column>
         <el-table-column prop="username" label="用户名" align="center"></el-table-column>
         <el-table-column prop="phoneNumber" label="电话号码" align="center"></el-table-column>
@@ -35,7 +35,7 @@
         <el-table-column prop="type" label="用户类型" align="center"></el-table-column>
 
         <!-- 操作列 -->
-        <el-table-column fixed="right" label="操作" align="center" width="150">
+        <el-table-column fixed="right" label="操作" align="center" >
           <template v-slot="scope">
             <el-button type="text" size="small" icon="el-icon-edit" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">删除</el-button>

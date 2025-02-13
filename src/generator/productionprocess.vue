@@ -26,7 +26,7 @@
           style="width: 100%;"
           stripe
       >
-        <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
+        <el-table-column type="selection" header-align="center" align="center" ></el-table-column>
         <el-table-column prop="id" label="ID" header-align="center" align="center"></el-table-column>
         <el-table-column prop="processName" label="工艺名称" header-align="center" align="center"></el-table-column>
         <el-table-column prop="inspectionResult" label="检查结果" header-align="center" align="center"></el-table-column>
@@ -34,7 +34,7 @@
         <el-table-column prop="potteryUid" label="紫砂壶ID" header-align="center" align="center"></el-table-column>
 
         <!-- 操作按钮 -->
-        <el-table-column fixed="right" header-align="center" align="center" width="150" label="操作">
+        <el-table-column fixed="right" header-align="center" align="center" label="操作">
           <template v-slot="scope">
             <el-button type="text" size="small" icon="el-icon-edit" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">删除</el-button>
