@@ -93,6 +93,7 @@ export default {
       dataForm: {
         key: ''
       },
+      id:0,
       dataList: [],
       pageIndex: 1,
       pageSize: 10,

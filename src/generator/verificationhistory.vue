@@ -26,14 +26,20 @@
           style="width: 100%;"
           stripe
       >
-        <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
+        <el-table-column type="selection" header-align="center" align="center" ></el-table-column>
         <el-table-column prop="id" label="ID" header-align="center" align="center"></el-table-column>
         <el-table-column prop="verifierId" label="验证人ID" header-align="center" align="center"></el-table-column>
-        <el-table-column prop="verificationResult" label="验证结果" header-align="center" align="center"></el-table-column>
+        <el-table-column prop="verificationResult" label="验证结果" header-align="center" align="center">
+          <template v-slot="scope">
+            <el-tag :type="getTagType(scope.row.verificationResult)">
+              {{ formatVerificationResult(scope.row.verificationResult) }}
+            </el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="potteryUid" label="紫砂壶ID" header-align="center" align="center"></el-table-column>
 
         <!-- 操作按钮 -->
-        <el-table-column fixed="right" header-align="center" align="center" width="150" label="操作">
+        <el-table-column fixed="right" header-align="center" align="center" label="操作">
           <template v-slot="scope">
             <el-button type="text" size="small" icon="el-icon-edit" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">删除</el-button>
@@ -88,7 +94,22 @@ export default {
   },
   methods: {
     isAuth() {
-      return true; // Always returns true, you may replace this with your auth logic
+      return true;
+    },
+    getTagType(status) {
+      switch (status) {
+        case 'Verified': return 'success'   // 绿色 ✅
+        case 'Failed': return 'danger'     // 红色 ❌
+        default: return 'info'             // 默认蓝色 ℹ️
+      }
+    },
+    // 格式化验证结果文本（如果 API 返回的是英文，可以转换成中文）
+    formatVerificationResult(status) {
+      const statusMap = {
+        Verified: '正品',
+        Failed: '假的'
+      }
+      return statusMap[status] || '未知'
     },
     // 获取数据列表
     getDataList() {
