@@ -11,11 +11,6 @@ const routes = [
     {
         path: '/',
         component: Main,  // 这里是主页面
-<<<<<<< HEAD
-        meta: { requiresAuth: true },
-=======
-        // meta: { requiresAuth: true },
->>>>>>> d5b4c62af7982810c21313343978b2c45d299c0c
         children: [
             { path: '', redirect: '/pottery' }, // 默认跳转到 pottery
             { path: 'pottery', component: Pottery },
