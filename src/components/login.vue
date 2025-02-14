@@ -30,6 +30,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { User, Lock } from '@element-plus/icons-vue'
 export default {
   name:"loginPage",
@@ -37,6 +38,10 @@ export default {
     User,
     Lock
   },
+=======
+export default {
+  name:"loginPage",
+>>>>>>> d5b4c62af7982810c21313343978b2c45d299c0c
   data() {
     return {
       loginData: {
