@@ -54,7 +54,7 @@ export default {
       this.$refs.loginForm.validate(async (valid) => {
         if (valid) {
           try {
-            const { data } = await this.$http.post('/auth/login', this.loginData);
+            const { data } = await this.$http.post('/generator/user/login', this.loginData);
             if (data.code === 0) {
               localStorage.setItem('token', data.token);
               this.$message.success('登录成功！');
