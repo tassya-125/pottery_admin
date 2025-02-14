@@ -17,6 +17,7 @@ const routes = [
     {
         path: '/main',
         component: Main,
+        meta: { requiresAuth: true },
         children: [
             { path: '', redirect: '/main/pottery' },  // 默认跳转到 pottery
             { path: 'pottery', component: Pottery },
