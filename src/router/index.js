@@ -8,9 +8,6 @@ import Login from '@/components/login.vue';
 import Main from "@/components/main.vue";
 
 // 检查是否已登录
-const isLoggedIn = () => {
-    return localStorage.getItem('token') !== null;
-};
 
 const routes = [
     // 登录页面
@@ -19,7 +16,7 @@ const routes = [
     // 主页面，只有在登录后才能访问
     {
         path: '/main',
-        component: Main,  // 主页面
+        component: Main,
         children: [
             { path: '', redirect: '/main/pottery' },  // 默认跳转到 pottery
             { path: 'pottery', component: Pottery },
