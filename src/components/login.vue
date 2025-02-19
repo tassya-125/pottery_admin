@@ -58,7 +58,8 @@ export default {
             if (data.code === 0) {
               localStorage.setItem('token', data.token);
               this.$message.success('登录成功！');
-              this.$router.push('/');
+              this.$store.dispatch('login', this.loginData);
+              this.$router.push('/main');
             } else {
               this.$message.error(data.msg || '登录失败');
             }

@@ -35,7 +35,20 @@
     <!-- 主体内容 -->
     <el-container>
       <el-header style="background-color: #f8f8f8; text-align: right; padding: 0 20px;">
-        <el-button type="danger" @click="logout">退出登录</el-button>
+        <el-dropdown>
+          <span class="el-dropdown-link">
+<!--            <el-avatar :src="user.avatar" size="small" style="margin-right: 8px;"></el-avatar>-->
+            {{ user.username }}
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <template v-slot:dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>个人资料</el-dropdown-item>
+              <el-dropdown-item>设置</el-dropdown-item>
+              <el-dropdown-item divided>退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </el-header>
 
       <el-main>
@@ -48,14 +61,23 @@
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+
+    };
+  },
   computed: {
     activeMenu() {
-      return this.$route.path
-    }
+      return this.$route.path;
+    },
+    user() {
+        return this.$store.state.user;
+    },
   },
   methods: {
     logout() {
-      this.$router.push("/login")
+      this.$router.push("/login");  // 跳转到登录页
+      localStorage.removeItem('token');  // 清除 token
     }
   }
 }
@@ -66,5 +88,30 @@ export default {
 .el-aside {
   min-height: 100vh;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 头部样式 */
+.header {
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* 用户信息样式 */
+.el-dropdown-link {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.avatar {
+  margin-right: 8px;
+}
+
+.username {
+  margin-right: 4px;
 }
 </style>

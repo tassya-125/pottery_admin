@@ -4,6 +4,7 @@ import router from './router' // 引入 Vue Router
 import axios from 'axios'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import store from "@/store";
 
 const app = createApp(App)
 
@@ -26,4 +27,5 @@ router.beforeEach((to, from, next) => {
 });
 app.use(ElementPlus)
 app.use(router) // 挂载 Vue Router
+app.use(store)
 app.mount('#app')
