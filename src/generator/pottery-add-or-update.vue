@@ -16,7 +16,14 @@
       </el-form-item>
 
       <el-form-item label="生产时间" prop="productionTime">
-        <el-input v-model="dataForm.productionTime" placeholder="请输入生产时间"></el-input>
+        <!-- 将 el-input 替换为 el-date-picker -->
+        <el-date-picker
+            v-model="dataForm.productionTime"
+            type="date"
+            placeholder="请选择生产日期"
+            format="YYYY-MM-DD"
+            value-format="YYYY-MM-DD"
+        />
       </el-form-item>
 
       <el-form-item label="工艺" prop="craftsmanshipProcess">
@@ -122,9 +129,10 @@ export default {
 
     // 上传成功的回调
     handleUploadSuccess (res, file) {
-        this.dataForm.imageUrl = res.url; // 设置图片 URL
-        console.log(file)
+        console.log(res,file)
+        this.dataForm.imageUrl =`https://pottery.oss-cn-hangzhou.aliyuncs.com/${this.uploadData.key}`;
         this.$message.success('图片上传成功！');
+        console.log(this.uploadData)
     },
 
     // 提交表单
@@ -165,7 +173,7 @@ export default {
             key: `uploads/${new Date().getTime()}-${this.fileList[0]?.name || 'default.jpg'}`,
             success_action_status: '200' // 让 OSS 返回 HTTP 200，而不是 204
           };
-          // console.log('OSS 签名数据:', this.uploadData);
+          console.log('OSS 签名数据:', this.uploadData);
         } else {
           this.$message.error('获取 OSS 签名失败');
         }

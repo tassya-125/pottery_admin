@@ -9,23 +9,23 @@
           text-color="#fff"
           active-text-color="#ffd04b"
       >
-        <el-menu-item index="/pottery">
+        <el-menu-item index="/main/pottery">
           <el-icon><i class="el-icon-menu"></i></el-icon>
           <span>紫砂壶管理</span>
         </el-menu-item>
-        <el-menu-item index="/user">
+        <el-menu-item index="/main/user">
           <el-icon><i class="el-icon-user"></i></el-icon>
           <span>用户管理</span>
         </el-menu-item>
-        <el-menu-item index="/salesrecord">
+        <el-menu-item index="/main/salesrecord">
           <el-icon><i class="el-icon-document"></i></el-icon>
           <span>订单管理</span>
         </el-menu-item>
-        <el-menu-item index="/verificationhistory">
+        <el-menu-item index="/main/verificationhistory">
           <el-icon><i class="el-icon-document"></i></el-icon>
           <span>验证历史管理</span>
         </el-menu-item>
-        <el-menu-item index="/productionprocess">
+        <el-menu-item index="/main/productionprocess">
           <el-icon><i class="el-icon-document"></i></el-icon>
           <span>生产流程管理</span>
         </el-menu-item>

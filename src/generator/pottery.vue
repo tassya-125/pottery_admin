@@ -159,33 +159,46 @@ export default {
     },
     // 删除
     deleteHandle(id) {
-      var ids = id ? [id] : this.dataListSelections.map(item => item.uid);
-      this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$http({
-          url: '/generator/pottery/delete',
-          method: 'post',
-          data: {}
-        }).then(({ data }) => {
-          if (data && data.code === 0) {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-              duration: 1500,
-              onClose: () => {
-                this.getDataList();
-              }
-            });
-          } else {
-            this.$message.error(data.msg);
-          }
+        // 根据传入的id判断是单个删除还是批量删除
+        var ids = id ? [id] : this.dataListSelections.map(item => item.uid);
+
+        // 提示用户是否确认删除
+        this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          // 发起删除请求，传递需要删除的id列表
+          this.$http({
+            url: '/generator/pottery/delete',
+            method: 'post',
+            data: ids  // 传递要删除的id数组
+          }).then(({ data }) => {
+            if (data && data.code === 0) {
+              // 操作成功，弹出提示信息，并刷新数据列表
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList();  // 刷新数据列表
+                }
+              });
+            } else {
+              // 删除失败，显示错误信息
+              this.$message.error(data.msg || '删除失败');
+            }
+          }).catch(error => {
+            // 请求失败的处理
+            this.$message.error('请求失败，请稍后重试');
+            console.log(error)
+          });
+        }).catch(() => {
+          // 取消删除操作时的处理
+          console.log('取消删除操作');
         });
-      }).catch(() => {});
+      }
     }
-  }
 };
 </script>
 
