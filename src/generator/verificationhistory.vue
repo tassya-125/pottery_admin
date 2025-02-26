@@ -168,7 +168,7 @@ export default {
         this.$http({
           url: '/generator/verificationhistory/delete',
           method: 'post',
-          data: {}
+          data: ids
         }).then(({ data }) => {
           if (data && data.code === 0) {
             this.$message({

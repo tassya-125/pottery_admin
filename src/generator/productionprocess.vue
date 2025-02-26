@@ -146,9 +146,9 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$http({
-          url: this.$http.adornUrl('/generator/productionprocess/delete'),
+          url: '/generator/productionprocess/delete',
           method: 'post',
-          data: this.$http.adornData(ids, false)
+          data: ids
         }).then(({data}) => {
           if (data && data.code === 0) {
             this.$message({
