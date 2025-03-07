@@ -27,7 +27,7 @@
           stripe
       >
         <el-table-column type="selection" header-align="center" align="center" ></el-table-column>
-        <el-table-column prop="id" label="ID" header-align="center" align="center"></el-table-column>
+<!--        <el-table-column prop="id" label="ID" header-align="center" align="center"></el-table-column>-->
         <el-table-column prop="processName" label="工艺名称" header-align="center" align="center"></el-table-column>
         <el-table-column prop="inspectionResult" label="检查结果" header-align="center" align="center"></el-table-column>
         <el-table-column prop="qualityCertification" label="质量认证" header-align="center" align="center"></el-table-column>

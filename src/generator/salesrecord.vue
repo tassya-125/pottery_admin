@@ -31,7 +31,11 @@
         <el-table-column type="selection" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" align="center"></el-table-column>
         <el-table-column prop="distributorInfo" label="分销商信息" align="center"></el-table-column>
-        <el-table-column prop="saleTime" label="销售时间" align="center"></el-table-column>
+        <el-table-column  label="销售时间" align="center">
+          <template v-slot="scope">
+            {{ formatDate(scope.row.saleTime) }}
+          </template>
+        </el-table-column>
         <el-table-column prop="buyerId" label="买家ID" align="center"></el-table-column>
         <el-table-column prop="potteryUid" label="紫砂壶ID" align="center"></el-table-column>
 
@@ -66,6 +70,7 @@
 
 <script>
 import AddOrUpdate from './salesrecord-add-or-update';
+import {formatDate} from "../utils/dateUtils";
 
 export default {
   name: "SalesRecord",
@@ -90,6 +95,7 @@ export default {
     this.getDataList();
   },
   methods: {
+    formatDate,
     isAuth(val) {
       console.log(val);
       return true;

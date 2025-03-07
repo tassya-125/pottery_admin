@@ -12,7 +12,15 @@
       </el-form-item>
 
       <el-form-item label="产地" prop="origin">
-        <el-input v-model="dataForm.origin" placeholder="请输入产地"></el-input>
+        <el-cascader
+            ref="cascader"
+            v-model="dataForm.origin"
+            :options="regionData"
+            :props="{ checkStrictly: true }"
+            placeholder="请选择省/市/区"
+            clearable
+        ></el-cascader>
+
       </el-form-item>
 
       <el-form-item label="生产时间" prop="productionTime">
@@ -44,8 +52,7 @@
         <i class="el-icon-plus"></i>
         </el-upload>
 
-        <!-- 显示上传成功的图片 -->
-        <el-image v-if="dataForm.imageUrl" :src="dataForm.imageUrl" class="uploaded-image"></el-image>
+
       </el-form-item>
 
     </el-form>
@@ -59,16 +66,18 @@
 </template>
 
 <script>
-
+import { regionData } from 'element-china-area-data'
+import { ref } from 'vue'
 export default {
   data () {
     return {
       visible: false,
-      fileList: [],  // 上传文件列表
+      fileList: [],// 上传文件列表
+      regionData: regionData,
       dataForm: {
         uid: 0,
         creator: '',
-        origin: '',
+        origin: ref([]),
         productionTime: '',
         craftsmanshipProcess: '',
         imageUrl: ''
@@ -88,7 +97,6 @@ export default {
     init (id) {
       this.dataForm.uid = id || 0;
       this.visible = true;
-      console.log("初始化表单", this.dataForm.uid);
 
       this.$nextTick(() => {
         if (this.$refs.dataForm) {
@@ -101,7 +109,10 @@ export default {
             method: 'get'
           }).then(({data}) => {
             if (data && data.code === 0) {
-              Object.assign(this.dataForm, data.pottery); // 填充数据
+
+              Object.assign(this.dataForm, data.pottery);// 填充数据
+              this.dataForm.origin = this.dataForm.origin.split(',');
+              console.log( this.dataForm.origin)
               if (data.pottery.imageUrl) {
                 this.fileList = [{ name: '图片', url: data.pottery.imageUrl }];
               }
@@ -139,11 +150,13 @@ export default {
     dataFormSubmit () {
       this.$refs.dataForm.validate((valid) => {
         if (!valid) return;
-
+        console.log(this.dataForm.origin)
+        var data=structuredClone(this.dataForm)
+        data.origin=data.origin.toString()
         this.$http({
           url: `/generator/pottery/${!this.dataForm.uid ? 'save' : 'update'}`,
           method: 'post',
-          data: { ...this.dataForm }
+          data: { ...data }
         }).then(({data}) => {
           if (data && data.code === 0) {
             this.$message({
@@ -185,7 +198,8 @@ export default {
       if (val) {
         this.getOssUploadData();  // 在弹框显示时获取 OSS 签名数据
       }
-    }
+    },
+
   }
 }
 </script>

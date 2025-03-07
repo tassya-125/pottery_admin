@@ -27,8 +27,8 @@
           stripe
       >
         <el-table-column type="selection" header-align="center" align="center" ></el-table-column>
-        <el-table-column prop="id" label="ID" header-align="center" align="center"></el-table-column>
-        <el-table-column prop="verifierId" label="验证人ID" header-align="center" align="center"></el-table-column>
+<!--        <el-table-column prop="id" label="ID" header-align="center" align="center"></el-table-column>-->
+<!--        <el-table-column prop="verifierId" label="验证人ID" header-align="center" align="center"></el-table-column>-->
         <el-table-column prop="verificationResult" label="验证结果" header-align="center" align="center">
           <template v-slot="scope">
             <el-tag :type="getTagType(scope.row.verificationResult)">
