@@ -14,7 +14,7 @@
       <el-form-item label="产地" prop="origin">
         <el-cascader
             ref="cascader"
-            v-model="dataForm.origin"
+            v-model="index"
             :options="regionData"
             :props="{ checkStrictly: true }"
             placeholder="请选择省/市/区"
@@ -68,6 +68,7 @@
 <script>
 import { regionData } from 'element-china-area-data'
 import { ref } from 'vue'
+import {getOriginIndex, getOriginString} from "@/utils/StringUtils";
 export default {
   data () {
     return {
@@ -82,6 +83,7 @@ export default {
         craftsmanshipProcess: '',
         imageUrl: ''
       },
+      index:[],
       dataRule: {
         creator: [{ required: true, message: '作者不能为空', trigger: 'blur' }],
         origin: [{ required: true, message: '产地不能为空', trigger: 'blur' }],
@@ -109,10 +111,8 @@ export default {
             method: 'get'
           }).then(({data}) => {
             if (data && data.code === 0) {
-
               Object.assign(this.dataForm, data.pottery);// 填充数据
-              this.dataForm.origin = this.dataForm.origin.split(',');
-              console.log( this.dataForm.origin)
+              this.index=getOriginIndex(this.dataForm.origin)
               if (data.pottery.imageUrl) {
                 this.fileList = [{ name: '图片', url: data.pottery.imageUrl }];
               }
@@ -150,13 +150,11 @@ export default {
     dataFormSubmit () {
       this.$refs.dataForm.validate((valid) => {
         if (!valid) return;
-        console.log(this.dataForm.origin)
-        var data=structuredClone(this.dataForm)
-        data.origin=data.origin.toString()
+        this.dataForm.origin =  getOriginString(this.index,regionData)
         this.$http({
           url: `/generator/pottery/${!this.dataForm.uid ? 'save' : 'update'}`,
           method: 'post',
-          data: { ...data }
+          data: { ...this.dataForm }
         }).then(({data}) => {
           if (data && data.code === 0) {
             this.$message({
