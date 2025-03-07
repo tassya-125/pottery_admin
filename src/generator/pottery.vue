@@ -35,8 +35,16 @@
         <el-table-column type="selection" ></el-table-column>
         <el-table-column prop="uid" label="ID" align="center" ></el-table-column>
         <el-table-column prop="creator" label="创作者" align="center" ></el-table-column>
-        <el-table-column prop="origin" label="产地" align="center" ></el-table-column>
-        <el-table-column prop="productionTime" label="生产时间" align="center" ></el-table-column>
+        <el-table-column prop="origin" label="产地" align="center" >
+          <template v-slot="scope">
+            {{ getOriginString(scope.row.origin) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="生产时间" align="center">
+          <template v-slot="scope">
+            {{ formatDate(scope.row.productionTime) }}
+          </template>
+        </el-table-column>
         <el-table-column prop="craftsmanshipProcess" label="工艺流程" align="center" ></el-table-column>
 
         <!-- 图片预览 -->
@@ -85,7 +93,8 @@
 
 <script>
 import AddOrUpdate from './pottery-add-or-update';
-
+import {formatDate} from "../utils/dateUtils";
+import { regionData } from 'element-china-area-data'
 export default {
   name: "PotteryItem",
   data() {
@@ -93,6 +102,7 @@ export default {
       dataForm: {
         key: ''
       },
+      regionData: regionData,
       id:0,
       dataList: [],
       pageIndex: 1,
@@ -110,8 +120,33 @@ export default {
     this.getDataList();
   },
   methods: {
+    formatDate,
     isAuth() {
       return true;
+    },
+    getOriginString(vals) {
+      if (!Array.isArray(vals) || vals.length === 0) {
+        console.log(vals)
+        return vals;
+      }
+
+      let resultLabels = [];
+      let currentLevel = regionData; // 初始时指向最外层
+
+      for (const val of vals) {
+        // 在当前层级查找对应的对象
+        const found = currentLevel.find(item => item.value === val);
+        if (found) {
+          // 找到后将对应的中文 label 存入结果
+          resultLabels.push(found.label);
+          // 准备进入下一级
+          currentLevel = found.children || [];
+        } else {
+          // 如果找不到则提前结束
+          break;
+        }
+      }
+      return resultLabels.join(' / ');
     },
     // 获取数据列表
     getDataList() {
@@ -127,6 +162,12 @@ export default {
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.dataList = data.page.list;
+          this.dataList.forEach(item => {
+            // item 就是每一条记录
+            if (item.origin) {
+              item.origin = item.origin.split(',');
+            }
+          });
           this.totalPage = data.page.totalCount;
         } else {
           this.dataList = [];

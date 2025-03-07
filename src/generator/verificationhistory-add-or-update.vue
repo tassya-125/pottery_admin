@@ -6,9 +6,9 @@
 
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter="dataFormSubmit()" label-width="100px">
 
-      <el-form-item label="鉴定员ID" prop="verifierId">
-        <el-input v-model="dataForm.verifierId" placeholder="请输入鉴定员ID"></el-input>
-      </el-form-item>
+<!--      <el-form-item label="鉴定员ID" prop="verifierId">-->
+<!--        <el-input v-model="dataForm.verifierId" placeholder="请输入鉴定员ID"></el-input>-->
+<!--      </el-form-item>-->
 
       <el-form-item label="鉴定结果" prop="verificationResult">
         <el-select v-model="dataForm.verificationResult" placeholder="请选择鉴定结果">
@@ -44,7 +44,7 @@ export default {
         potteryUid: ''
       },
       dataRule: {
-        verifierId: [{ required: true, message: '鉴定员ID不能为空', trigger: 'blur' }],
+        // verifierId: [{ required: true, message: '鉴定员ID不能为空', trigger: 'blur' }],
         verificationResult: [{ required: true, message: '请选择鉴定结果', trigger: 'change' }],
         potteryUid: [{ required: true, message: '紫砂壶UID不能为空', trigger: 'blur' }]
       }

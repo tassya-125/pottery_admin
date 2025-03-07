@@ -27,7 +27,7 @@
           stripe
       >
         <el-table-column type="selection" header-align="center" align="center" ></el-table-column>
-        <el-table-column prop="id" label="ID" align="center"></el-table-column>
+<!--        <el-table-column prop="id" label="ID" align="center"></el-table-column>-->
         <el-table-column prop="username" label="用户名" align="center"></el-table-column>
         <el-table-column prop="phoneNumber" label="电话号码" align="center"></el-table-column>
         <el-table-column prop="email" label="电子邮件" align="center"></el-table-column>
