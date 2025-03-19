@@ -10,7 +10,7 @@ import locale from 'element-plus/es/locale/lang/zh-cn';
 
 const app = createApp(App)
 
-axios.defaults.baseURL = 'http://localhost:9000'
+axios.defaults.baseURL = 'http://121.4.28.72:9000'
 axios.interceptors.request.use(config => {
     const token = localStorage.getItem('token');
     if (token) {
